@@ -822,6 +822,10 @@ class Chemical: # pragma: no cover
     def calculate(self, T=None, P=None):
         if (hasattr(self, "T") and T == self.T and hasattr(self, "P") and P == self.P):
             return None
+        if T is not None and not isfinite(T):
+            raise ValueError("Non-finite value specified for Chemical temperature - aborting!")
+        if P is not None and not isfinite(P):
+            raise ValueError("Non-finite value specified for Chemical pressure - aborting!")
         if T:
             if T < 0:
                 raise ValueError("Negative value specified for Chemical temperature - aborting!")
